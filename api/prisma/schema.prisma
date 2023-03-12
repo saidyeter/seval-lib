@@ -1,0 +1,24 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model book {
+    id              Int     @id @default(autoincrement())
+    originalName    String // Orijinal İsim
+    origin          String // Ülke/Şehir/Milliyet/Dil
+    translator      String // Çeviri
+    print           String // Baskı
+    obtainedin      String // Edinim Tarihi / Yer
+    isRead          Boolean // Okunma
+    comment         String //not
+    name            String // Kitap Adı 
+    kind            String // Türü
+    authorEditor    String // Yazar/Editör
+    publishingHouse String //Yayınevi
+    pageCount       Int //Sayfa
+}
