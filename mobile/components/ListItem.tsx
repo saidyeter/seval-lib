@@ -1,8 +1,9 @@
 import { Text, View } from "./Themed";
 import { bookSchema } from "../api/models";
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 import { z } from "zod";
 import { Icon } from "./Icon";
+import { Link } from "expo-router";
 
 export default function ListItem(params: z.infer<typeof bookSchema>) {
   return (
@@ -21,11 +22,11 @@ export default function ListItem(params: z.infer<typeof bookSchema>) {
             numberOfLines={1}
             style={{ fontWeight: "600", color: "#4C3A51" }}
           >
-            {' '+params.name}
+            {" " + params.name}
           </Text>
         </View>
         <View style={{ flex: 1, flexDirection: "row" }}>
-        <Icon
+          <Icon
             name="user"
             color="#4C3A51"
             iconsize="sm"
@@ -34,7 +35,7 @@ export default function ListItem(params: z.infer<typeof bookSchema>) {
             numberOfLines={1}
             style={{ color: "#774360" }}
           >
-            {' '+params.authorEditor+' '} 
+            {" " + params.authorEditor + " "}
           </Text>
           <Icon
             name="file-text-o"
@@ -45,7 +46,7 @@ export default function ListItem(params: z.infer<typeof bookSchema>) {
             numberOfLines={1}
             style={{ color: "#774360" }}
           >
-            {' '+params.pageCount}
+            {" " + params.pageCount}
           </Text>
         </View>
         <View style={{ flex: 1, flexDirection: "row" }}>
@@ -55,9 +56,40 @@ export default function ListItem(params: z.infer<typeof bookSchema>) {
             iconsize="sm"
           />
           <Text style={{ color: "#B25068", fontStyle: "italic" }}>
-            {' '+params.publishingHouse}
+            {" " + params.publishingHouse}
           </Text>
         </View>
+      </View>
+
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          margin: 5,
+        }}
+      >
+        <Link
+          href={{ pathname: "/detail", params: params }}
+          asChild
+        >
+          <Pressable
+            onPress={() => {}}
+            style={({ pressed }) => [
+              {
+                transform: [{ scale: pressed ? 0.8 : 1 }],
+                backgroundColor: "#ECF2FF",
+                padding: 5,
+                borderRadius: 50,
+              },
+            ]}
+          >
+            <Icon
+              name="ellipsis-h"
+              color="#4C3A51"
+              iconsize="sm"
+            />
+          </Pressable>
+        </Link>
       </View>
     </View>
   );

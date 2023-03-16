@@ -4,7 +4,7 @@ import { Text, View } from "../../components/Themed";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ListItem from "../../components/ListItem";
 export default function HomeScreen() {
-  const { isLoading, hasNextPage, data, fetchNextPage, ...result } =
+  const { isLoading, hasNextPage, data, fetchNextPage } =
     useInfiniteQuery({
       queryKey: ["repoData"],
       queryFn: ({ pageParam = 1 }) =>
@@ -35,12 +35,6 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Books</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
       {isLoading ? (
         <>
           <Text>loading</Text>
