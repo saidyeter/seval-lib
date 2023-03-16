@@ -55,6 +55,10 @@ function RootLayoutNav() {
               options={{ headerShown: false }}
             />
             <Stack.Screen
+              name="(modals)/detail"
+              options={{ presentation: "modal", headerTitle: "Book Details" }}
+            />
+            <Stack.Screen
               name="modal"
               options={{ presentation: "modal" }}
             />
