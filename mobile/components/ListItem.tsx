@@ -69,7 +69,7 @@ export default function ListItem(params: z.infer<typeof bookSchema>) {
         }}
       >
         <Link
-          href={{ pathname: "/detail", params: params }}
+          href={{ pathname: "/detail", params: { id: params.id } }}
           asChild
         >
           <Pressable
@@ -84,9 +84,9 @@ export default function ListItem(params: z.infer<typeof bookSchema>) {
             ]}
           >
             <Icon
-              name="ellipsis-h"
+              name="chevron-circle-right"
               color="#4C3A51"
-              iconsize="sm"
+              iconsize="md"
             />
           </Pressable>
         </Link>
