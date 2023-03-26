@@ -3,6 +3,7 @@ import { bookSchema } from "./models";
 
 export default {
     books,
+    book,
     // add,
     // update
 }
@@ -39,5 +40,18 @@ async function books(params: z.infer<typeof booksParams>): Promise<z.infer<typeo
     }
     console.log('books validation error', validation.error);
     return undefined
+}
 
+
+async function book(id:number): Promise<z.infer<typeof bookSchema> | undefined> {
+  
+    const url = baseUrl + '/book/' + id
+    const res = await fetch(url)
+    const resJson = await res.json()
+    const validation = bookSchema.safeParse(resJson)
+    if (validation.success) {
+        return validation.data
+    }
+    console.log('books validation error', validation.error);
+    return undefined
 }
