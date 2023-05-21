@@ -1,73 +1,102 @@
-import { Text, View } from "./Themed";
 import { bookSchema } from "../api/models";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable } from "react-native";
 import { z } from "zod";
 import { Icon } from "./Icon";
 import { Link } from "expo-router";
+import { FlexView } from "./themed/flex-view";
+import { Label } from "./themed/label";
 
 export default function ListItem(params: z.infer<typeof bookSchema>) {
+  const iconcolor = "white"; //"#92B4EC";
+  const numbercolor = "white"; //"#F7ECDE";
   return (
-    <View style={styles.container}>
-      <View style={styles.num}>
-        <Text style={{ fontWeight: "600", color: "#4C3A51" }}>{params.id}</Text>
-      </View>
-      <View style={styles.info}>
-        <View style={{ flex: 1, flexDirection: "row" }}>
+    <FlexView
+      flexDirection="row"
+      justifyContent="flex-start"
+      gap={5}
+      padding={5}
+      borderRadius={5}
+    >
+      <FlexView>
+        <Label
+          fontWeight="600"
+          color={numbercolor}
+        >
+          {params.id ?? -1}
+        </Label>
+      </FlexView>
+      <FlexView
+        alignItems="flex-start"
+        flex={10}
+      >
+        <FlexView
+          flexDirection="row"
+          justifyContent="flex-start"
+        >
           <Icon
             name="book"
-            color="#4C3A51"
-            iconsize="sm"
+            iconsize="s"
+            color={iconcolor}
           />
-          <Text
+          <Label
             numberOfLines={1}
-            style={{ fontWeight: "600", color: "#4C3A51" }}
+            fontWeight="600"
+            size="m"
+            textAlign="left"
           >
-            {" " + params.name}
-          </Text>
-        </View>
-        <View style={{ flex: 1, flexDirection: "row" }}>
+            {params.name ?? ""}
+          </Label>
+        </FlexView>
+        <FlexView
+          flexDirection="row"
+          justifyContent="flex-start"
+        >
           <Icon
             name="user"
-            color="#4C3A51"
-            iconsize="sm"
+            iconsize="s"
+            color={iconcolor}
           />
-          <Text
+          <Label
+            size="s"
             numberOfLines={1}
-            style={{ color: "#774360" }}
+            textAlign="left"
           >
-            {" " + params.authorEditor + " "}
-          </Text>
+            {params.authorEditor ?? ""}
+          </Label>
+        </FlexView>
+        <FlexView
+          flexDirection="row"
+          justifyContent="flex-start"
+        >
           <Icon
             name="file-text-o"
-            color="#4C3A51"
-            iconsize="sm"
+            iconsize="s"
+            color={iconcolor}
           />
-          <Text
-            numberOfLines={1}
-            style={{ color: "#774360" }}
+          <Label
+            width={"15%"}
+            size="s"
+            textAlign="left"
           >
-            {" " + params.pageCount}
-          </Text>
-        </View>
-        <View style={{ flex: 1, flexDirection: "row" }}>
+            {params.pageCount ?? -1}
+          </Label>
           <Icon
             name="home"
-            color="#B25068"
-            iconsize="sm"
+            iconsize="s"
+            color={iconcolor}
           />
-          <Text style={{ color: "#B25068", fontStyle: "italic" }}>
-            {" " + params.publishingHouse}
-          </Text>
-        </View>
-      </View>
+          <Label
+            fontStyle="italic"
+            width={"50%"}
+            size="s"
+            textAlign="left"
+          >
+            {params.publishingHouse ?? ""}
+          </Label>
+        </FlexView>
+      </FlexView>
 
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          margin: 5,
-        }}
-      >
+      <FlexView margin={5}>
         <Link
           href={{ pathname: "/detail", params: { id: params.id } }}
           asChild
@@ -85,55 +114,42 @@ export default function ListItem(params: z.infer<typeof bookSchema>) {
           >
             <Icon
               name="chevron-circle-right"
-              color="#4C3A51"
-              iconsize="md"
+              iconsize="m"
+              color="#B2C8DF"
             />
           </Pressable>
         </Link>
-      </View>
-    </View>
+      </FlexView>
+    </FlexView>
   );
 }
-
-const styles = StyleSheet.create({
-  subinfo: {
-    flex: 1,
-    height: 20,
-    flexDirection: "row",
-    // alignItems: "flex-start",
-    // justifyContent: "flex-start",
-    backgroundColor: "#ECF2FF",
-  },
-  num: {
-    backgroundColor: "#ECF2FF",
-    width: 30,
-    height: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 50,
-    margin: 5,
-  },
-  info: {
-    width: "85%",
-    flex: 1,
-    alignItems: "flex-start",
-    justifyContent: "center",
-  },
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    height: 70,
-    margin: 5,
-    gap: 5,
-    padding: 5,
-    borderRadius: 5,
-    shadowColor: "#5371A2",
-    shadowOpacity: 0.5,
-    shadowOffset: {
-      width: 1,
-      height: 1,
-    },
-  },
-});
+const colors = [
+  "#A6D0DD",
+  "#FF6969",
+  "#FFD3B0",
+  "#E8A0BF",
+  "#BA90C6",
+  "#C7E9B0",
+  "#CCD5AE",
+  "#FFB4B4",
+  "#FFACAC",
+  "#FFAACF",
+  "#FFCEFE",
+  "#F8CBA6",
+  "#CDE990",
+  "#8DCBE6",
+  "#FD8A8A",
+  "#BCEAD5",
+  "#9ED5C5",
+  "#BCCEF8",
+  "#ABD9FF",
+  "#FFABE1",
+  "#B1D7B4",
+  "#F7ECDE",
+  "#B2C8DF",
+  "#C4D7E0",
+  "#C7D36F",
+  "#E0DECA",
+  "#CDC2AE",
+  "#92B4EC",
+];
