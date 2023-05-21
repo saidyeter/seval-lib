@@ -49,14 +49,25 @@ function RootLayoutNav() {
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
-          <Stack>
+          <Stack
+          initialRouteName="index"
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: "black",
+              },
+              headerTintColor: "white",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          >
             <Stack.Screen
-              name="(tabs)"
-              options={{ headerShown: false }}
+              name="index"
+              options={{ headerTitle: "Kitaplarim" }}
             />
             <Stack.Screen
-              name="(modals)/detail"
-              options={{  headerTitle: "Book Details" }}
+              name="detail"
+              options={{ headerTitle: "Kitap Detayi" }}
             />
             <Stack.Screen
               name="modal"
