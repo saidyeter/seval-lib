@@ -18,11 +18,16 @@ const paginationSchema = z.object({
     pageSize: z.number().optional(),
 })
 
-const booksParams = paginationSchema.merge(bookSchema)
+export const booksParams = paginationSchema.merge(bookSchema)
 
-const booksResultSchema = z.object({
+
+export const booksResultSchema = z.object({
     totalCount: z.number(),
     pageCount: z.number(),
+    pageSize: z.number(),
+    currentPage: z.number(),
+    hasNextPage: z.boolean(),
+    itemsCount: z.number(),
     items: bookSchema.array()
 })
 
@@ -43,8 +48,8 @@ async function books(params: z.infer<typeof booksParams>): Promise<z.infer<typeo
 }
 
 
-async function book(id:number): Promise<z.infer<typeof bookSchema> | undefined> {
-  
+async function book(id: number): Promise<z.infer<typeof bookSchema> | undefined> {
+
     const url = baseUrl + '/book/' + id
     const res = await fetch(url)
     const resJson = await res.json()

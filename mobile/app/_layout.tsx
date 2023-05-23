@@ -6,7 +6,7 @@ import {
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useColorScheme } from "react-native";
 
 export {
@@ -39,43 +39,52 @@ export default function RootLayout() {
   );
 }
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { FilterContext, FilterParamsSchema } from "../api/filter-context";
+import { z } from "zod";
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
   const queryClient = new QueryClient();
+  const filterParamsState = useState<z.infer<typeof FilterParamsSchema>>({});
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider
-          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-        >
-          <Stack
-          initialRouteName="index"
-            screenOptions={{
-              headerStyle: {
-                backgroundColor: "black",
-              },
-              headerTintColor: "white",
-              headerTitleStyle: {
-                fontWeight: "bold",
-              },
-            }}
+      <FilterContext.Provider value={filterParamsState}>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider
+            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
           >
-            <Stack.Screen
-              name="index"
-              options={{ headerTitle: "Kitaplarim" }}
-            />
-            <Stack.Screen
-              name="detail"
-              options={{ headerTitle: "Kitap Detayi" }}
-            />
-            <Stack.Screen
-              name="modal"
-              options={{ presentation: "modal" }}
-            />
-          </Stack>
-        </ThemeProvider>
-      </QueryClientProvider>
+            <Stack
+              initialRouteName="index"
+              screenOptions={{
+                headerStyle: {
+                  backgroundColor: "black",
+                },
+                headerTintColor: "white",
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+              }}
+            >
+              <Stack.Screen
+                name="index"
+                options={{ headerTitle: "Kitaplarim" }}
+              />
+              <Stack.Screen
+                name="detail"
+                options={{ headerTitle: "Kitap Detayi" }}
+              />
+              <Stack.Screen
+                name="filter"
+                options={{ headerTitle: "Filtrele" }}
+              />
+              <Stack.Screen
+                name="modal"
+                options={{ presentation: "modal" }}
+              />
+            </Stack>
+          </ThemeProvider>
+        </QueryClientProvider>
+      </FilterContext.Provider>
     </>
   );
 }

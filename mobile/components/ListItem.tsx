@@ -27,7 +27,7 @@ export default function ListItem(params: z.infer<typeof bookSchema>) {
       </FlexView>
       <FlexView
         alignItems="flex-start"
-        flex={10}
+        flex={7}
       >
         <FlexView
           flexDirection="row"
@@ -96,7 +96,7 @@ export default function ListItem(params: z.infer<typeof bookSchema>) {
         </FlexView>
       </FlexView>
 
-      <FlexView margin={5}>
+      <FlexView>
         <Link
           href={{ pathname: "/detail", params: { id: params.id } }}
           asChild
