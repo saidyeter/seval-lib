@@ -1,9 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Platform, StyleSheet } from "react-native";
 import { z } from "zod";
-import { View, Text } from "../components/Themed";
 import api from "../api/client";
 import { useState } from "react";
 import { bookSchema } from "../api/models";
@@ -20,7 +18,7 @@ export default function DetailScreen() {
     undefined
   );
   if (!params.id) {
-    return <Text>loading</Text>;
+    return <Label>loading</Label>;
   }
 
   useQuery({
@@ -135,23 +133,3 @@ function InfoItem(params: {
     </FlexView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-  },
-  title: {},
-  subtitle: {
-    fontSize: 16,
-    fontWeight: "normal",
-  },
-  regular: {
-    fontSize: 24,
-  },
-  separator: {
-    // marginVertical: 30,
-  },
-});
